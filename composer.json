@@ -1,0 +1,21 @@
+{
+    "name": "gevman/lite-curl-core",
+    "description": "Liteweight CURL library.",
+    "keywords": ["CURL"],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4"
+    },
+    "authors": [
+        {
+            "name": "Gevorg Mansuryan",
+            "email": "gevorgmansuryan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Gevman\\CurlLite\\": "src/"
+        }
+    }
+}
