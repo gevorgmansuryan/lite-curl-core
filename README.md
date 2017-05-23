@@ -6,5 +6,5 @@ Liteweight CURL library.
 ## Installation (using composer)
 
 ```bash
-composer require gevman/lite-curl
+composer require gevman/lite-curl-core
 ```
