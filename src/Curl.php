@@ -51,7 +51,7 @@ class Curl
      */
     public static function downloadFile($from, $to, $name = null, $keepExt = true, $defaultExt = null)
     {
-        $base = trim(basename($from));
+        $base = trim(basename(parse_url($from, PHP_URL_PATH)));
         if (!$name) {
             $name = $base;
         }
@@ -62,7 +62,7 @@ class Curl
             }
             $name = sprintf('%s.%s', $name, $ext);
         }
-        $to = trim(trim($to), '/').DIRECTORY_SEPARATOR.$name;
+        $to = rtrim(trim($to), '/').DIRECTORY_SEPARATOR.$name;
         $ch = curl_init ($from);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
