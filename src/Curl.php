@@ -41,6 +41,43 @@ class Curl
 		return $options;
 	}
 
+    /**
+     * @param $from
+     * @param $to
+     * @param null $name
+     * @param bool $keepExt
+     * @param null $defaultExt
+     * @return null|string
+     */
+    public static function downloadFile($from, $to, $name = null, $keepExt = true, $defaultExt = null)
+    {
+        $base = trim(basename($from));
+        if (!$name) {
+            $name = $base;
+        }
+        if ($keepExt) {
+            $ext = pathinfo($base, PATHINFO_EXTENSION);
+            if (empty($ext) && $defaultExt) {
+                $ext = $defaultExt;
+            }
+            $name = sprintf('%s.%s', $name, $ext);
+        }
+        $to = trim(trim($to), '/').DIRECTORY_SEPARATOR.$name;
+        $ch = curl_init ($from);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+        $raw = curl_exec($ch);
+        curl_close ($ch);
+        if(file_exists($to)){
+            unlink($to);
+        }
+        $fp = fopen($to,'x');
+        fwrite($fp, $raw);
+        fclose($fp);
+        return $name;
+    }
+
 	/**
 	 * @param array $urls
 	 *
